@@ -202,7 +202,7 @@ describe("winner ledger", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 });
-describe("cuttinggate server sse endpoints", () => {
+describe("chalcopyrite server sse endpoints", () => {
   test("GET /models/sse returns text/event-stream with an immediate models_reload event", async () => {
     const { buildApp } = await import("../src/server.ts");
     // Hermetic: point the herd upstream at a dead port so the handler takes

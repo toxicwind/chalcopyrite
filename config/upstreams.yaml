@@ -2,7 +2,7 @@
 
   # herd :25100 serves LOCAL GGUFs only. These cloud routes belong to
 
-  # cuttinggate, which fronts flock :25193. Nothing was deleted.
+  # chalcopyrite, which fronts flock :25193. Nothing was deleted.
 
   routes_from_herd'
 : oracle-judge-a:

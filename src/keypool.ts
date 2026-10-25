@@ -3,7 +3,7 @@
  *
  * flock loads ONE key per provider at boot and keeps it forever, so a dead
  * key produces a bare 502 with no diagnosis and no rotation. herd solved this
- * with a separate keypool service on :25109. cuttinggate folds it in, because
+ * with a separate keypool service on :25109. chalcopyrite folds it in, because
  * a router that knows a model is dead but cannot rotate a dead key is only
  * half a router.
  *
@@ -168,7 +168,7 @@ export class CredentialPlane {
     try {
       const res = await fetchImpl(url, {
         method: pool.health.method,
-        headers: { Authorization: `Bearer ${key}`, "User-Agent": "cuttinggate" },
+        headers: { Authorization: `Bearer ${key}`, "User-Agent": "chalcopyrite" },
         signal: AbortSignal.timeout(pool.probeTimeoutS * 1000),
       });
       this.note(upstream, keyName, res.status);

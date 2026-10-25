@@ -7,8 +7,8 @@
  * quarantined list (disable-with-receipt — nothing is destroyed, ids come
  * back by re-running sync once their gateway serves them again).
  *
- *   cuttinggate/bin/catalog-sync.ts            # sync + report
- *   cuttinggate/bin/catalog-sync.ts --dry-run  # report only, no write
+ *   chalcopyrite/bin/catalog-sync.ts            # sync + report
+ *   chalcopyrite/bin/catalog-sync.ts --dry-run  # report only, no write
  */
 import { readFileSync } from "node:fs";
 import { audit, DEFAULT_REPORT_PATH } from "../src/audit";

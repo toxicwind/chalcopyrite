@@ -124,7 +124,7 @@ export function loadSecretsFiles(): void {
         if (k && v && !process.env[k]) process.env[k] = v;
       }
     } catch (e) {
-      console.error(`cuttinggate: loadSecretsFiles ${path}:`, e);
+      console.error(`chalcopyrite: loadSecretsFiles ${path}:`, e);
     }
   }
 }
@@ -133,14 +133,14 @@ export function loadConfig(overrides: Partial<Config> = {}): Config {
   const parsed = Schema.safeParse({
     keys: readKeys(),
     rpm: readRpm(),
-    ...(process.env.CUTTINGGATE_PORT ? { port: process.env.CUTTINGGATE_PORT } : {}),
+    ...(process.env.CHALCOPYRITE_PORT ? { port: process.env.CHALCOPYRITE_PORT } : {}),
     ...(process.env.CUTTINGGATE_HOST ? { host: process.env.CUTTINGGATE_HOST } : {}),
     ...(process.env.CUTTINGGATE_LOG_LEVEL ? { logLevel: process.env.CUTTINGGATE_LOG_LEVEL } : {}),
     ...overrides,
   });
   if (!parsed.success) {
     const detail = parsed.error.issues.map((i) => `  ${i.path.join(".") || "(root)"}: ${i.message}`).join("\n");
-    throw new Error(`cuttinggate: invalid configuration\n${detail}`);
+    throw new Error(`chalcopyrite: invalid configuration\n${detail}`);
   }
   return parsed.data;
 }

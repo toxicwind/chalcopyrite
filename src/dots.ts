@@ -1,5 +1,5 @@
 /**
- * Estate Dots-3-Note coercion provider for cuttinggate (custom/dots).
+ * Estate Dots-3-Note coercion provider for chalcopyrite (custom/dots).
  * Neutralizes: Ghost outputs, list:string mismatches, 22s latency, and replay crashes.
  */
 

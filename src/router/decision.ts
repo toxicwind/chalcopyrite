@@ -13,7 +13,7 @@ import { pickStrategy, raceCandidates } from "./strategy.ts";
 
 /**
  * decide()'s return value: the route result plus the routing metadata the
- * serving layer turns into response headers (X-Cuttinggate-Strategy /
+ * serving layer turns into response headers (X-Chalcopyrite-Strategy /
  * X-Routed-Via). RouteResult stays header-free on purpose — providers yield
  * status/body/timings only; the serving layer owns the HTTP envelope.
  */
@@ -94,7 +94,7 @@ export async function decide(body: ChatBody, ctx: StrategyDeps): Promise<Decisio
     return {
       ...pinned.result,
       headers: {
-        "X-Cuttinggate-Strategy": pinned.strategy,
+        "X-Chalcopyrite-Strategy": pinned.strategy,
         "X-Routed-Via": pinned.result.provider === "herd" ? "herd" : "flock",
       },
     };
@@ -113,7 +113,7 @@ export async function decide(body: ChatBody, ctx: StrategyDeps): Promise<Decisio
   return {
     ...result,
     headers: {
-      "X-Cuttinggate-Strategy": strategyName,
+      "X-Chalcopyrite-Strategy": strategyName,
       "X-Routed-Via": isHerd ? "herd" : "flock",
     },
   };

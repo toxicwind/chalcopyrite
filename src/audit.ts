@@ -1,5 +1,5 @@
 /**
- * cuttinggate — live catalog audit implementation.
+ * chalcopyrite — live catalog audit implementation.
  *
  * Backs bin/catalog-audit.ts: probes both gateways (herd, flock), diffs the
  * live catalog against what each gateway actually serves, and names every id

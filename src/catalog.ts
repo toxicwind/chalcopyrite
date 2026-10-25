@@ -1,5 +1,5 @@
 /**
- * cuttinggate — live model catalog.
+ * chalcopyrite — live model catalog.
  *
  * The catalog is written by @toxicwind/pinax and read by every routing layer.
  * Two contracts are recognized on read:

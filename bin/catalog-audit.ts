@@ -7,10 +7,10 @@
  * that would have caught `estate/free`, `local-fast`, and the nemotron
  * cloud model on the day they were declared.
  *
- *   cuttinggate/bin/catalog-audit.ts              # audit, exit 1 on findings
- *   cuttinggate/bin/catalog-audit.ts --find <id>  # resolve one model id
- *   cuttinggate/bin/catalog-audit.ts --rewrite    # emit the canonical contract
- *   cuttinggate/bin/catalog-audit.ts --json
+ *   chalcopyrite/bin/catalog-audit.ts              # audit, exit 1 on findings
+ *   chalcopyrite/bin/catalog-audit.ts --find <id>  # resolve one model id
+ *   chalcopyrite/bin/catalog-audit.ts --rewrite    # emit the canonical contract
+ *   chalcopyrite/bin/catalog-audit.ts --json
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";

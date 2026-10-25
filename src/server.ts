@@ -1,5 +1,5 @@
 /**
- * cuttinggate — routing gate between the coding agent and its backends.
+ * chalcopyrite — routing gate between the coding agent and its backends.
  *
  * Failure envelope: every non-2xx carries a `code` the client can branch on
  * without parsing prose. The catalog is watched (and reloadable via
@@ -487,9 +487,9 @@ export async function main(): Promise<void> {
   const router = new Router(config, gate, quarantine, ledger, credentials, pauser);
   const catalogPath = process.env.CUTTINGGATE_CATALOG ?? DEFAULT_CATALOG_PATH;
   let current: CatalogLoad = loadLiveCatalog(catalogPath);
-  if (current.status !== "ok") { process.stderr.write(`cuttinggate: catalog load failed: ${current.status} (${catalogPath})\n`); process.exit(1); }
+  if (current.status !== "ok") { process.stderr.write(`chalcopyrite: catalog load failed: ${current.status} (${catalogPath})\n`); process.exit(1); }
   const pairs = seedRouter(router, quarantine, current.catalog);
-  log.info({ catalog: current.source, providers: Object.keys(current.catalog.providers).length, serving: pairs, contract: current.contract.name }, "cuttinggate catalog seeded");
+  log.info({ catalog: current.source, providers: Object.keys(current.catalog.providers).length, serving: pairs, contract: current.contract.name }, "chalcopyrite catalog seeded");
 
   const reload = (): CatalogLoad => {
     const next = loadLiveCatalog(catalogPath);
@@ -517,7 +517,7 @@ export async function main(): Promise<void> {
 
   const app = buildApp({ config, gate, quarantine, ledger, router, catalogState: () => current, reload, credentials, pauser });
   app.listen({ port: config.port, hostname: config.host });
-  log.info({ port: config.port, host: config.host, providers: Object.keys(config.keys) }, "cuttinggate up");
+  log.info({ port: config.port, host: config.host, providers: Object.keys(config.keys) }, "chalcopyrite up");
 }
 
 if (import.meta.main) await main();

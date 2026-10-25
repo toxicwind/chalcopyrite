@@ -1,5 +1,5 @@
 /**
- * GitHub Copilot provider for cuttinggate.
+ * GitHub Copilot provider for chalcopyrite.
  *
  * Copilot is the one upstream that cannot be reached with a static API key: a
  * long-lived *account* token (`gho_` / `ghu_` / `github_pat_`) must be exchanged
@@ -16,7 +16,7 @@
 /** Env var consulted when no explicit token env is configured. */
 export const COPILOT_TOKEN_ENV = "GITHUB_TOKEN";
 
-/** Registry key. cuttinggate routes on provider ids, so this must match. */
+/** Registry key. chalcopyrite routes on provider ids, so this must match. */
 export const COPILOT_PROVIDER = "custom/copilot";
 export const COPILOT_LEGACY_PROVIDER = "copilot";
 
