@@ -41,7 +41,9 @@ function envelope(code: keyof typeof CODES, message: string, extra: Record<strin
 }
 
 /** Providers that need no key (they live on this box). */
-const LOCAL_PROVIDERS = new Set(["herd", "llama-swap", "nim-local", "kimi-auto", "google-eap"]);
+// Local providers need no API key. These names are the provider-map keys
+// (src/config.ts) — keep them in sync with that map.
+const LOCAL_PROVIDERS = new Set(["bornite", "kimi-auto", "google-eap"]);
 const CODING = buildCoding(LOCAL_ROLES, {});
 
 // ── client-key gate ──────────────────────────────────────────────────────
@@ -135,13 +137,15 @@ export function buildApp(deps: AppDeps) {
   };
 
   const handleModelsSse = async (): Promise<Response> => {
-    const llamaSwap = config.bases["llama-swap"];
-    const herdUrl = llamaSwap ? llamaSwap.replace(/\/v1\/?$/, "/models/sse") : "http://127.0.0.1:25100/models/sse";
+    const borniteBase = config.bases["bornite"];
+    const borniteUrl = borniteBase
+      ? borniteBase.replace(/\/v1\/?$/, "/models/sse")
+      : "http://127.0.0.1:25100/models/sse";
     // The deadline covers headers only: the stream itself is long-lived.
     const ac = new AbortController();
     const headerTimer = setTimeout(() => ac.abort(), 10_000);
     try {
-      const upstream = await fetch(herdUrl, { headers: { Accept: "text/event-stream" }, signal: ac.signal });
+      const upstream = await fetch(borniteUrl, { headers: { Accept: "text/event-stream" }, signal: ac.signal });
       clearTimeout(headerTimer);
       if (upstream.ok && upstream.body) {
         return new Response(upstream.body, {
@@ -150,7 +154,7 @@ export function buildApp(deps: AppDeps) {
         });
       }
     } catch {
-      clearTimeout(headerTimer); // herd down: fall through to the keep-alive stream
+      clearTimeout(headerTimer); // bornite down: fall through to the keep-alive stream
     }
     return createSSEStream((send, _close, keepAlive) => {
       send("models_reload", { status: "loaded", count: router.known().length });

@@ -207,7 +207,7 @@ describe("chalcopyrite server sse endpoints", () => {
     const { buildApp } = await import("../src/server.ts");
     // Hermetic: point the herd upstream at a dead port so the handler takes
     // its fallback path (live herd would proxy its own stream instead).
-    const cfgDead = loadConfig({ ...cfg, bases: { ...cfg.bases, "llama-swap": "http://127.0.0.1:1" } });
+    const cfgDead = loadConfig({ ...cfg, bases: { ...cfg.bases, bornite: "http://127.0.0.1:1" } });
     const r = new Router(cfgDead, new ProviderGate(cfgDead), new Quarantine(), ledgerAt(scratch("cg-s-")));
     r.register("m/mock", "alpha");
     const app = buildApp({

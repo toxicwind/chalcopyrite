@@ -765,7 +765,7 @@ export async function routeCascade(
   body: ChatBody,
   session: string,
 ): Promise<RouteResult> {
-  const localFirst = ["herd", "kimi-auto", "nim-local"];
+  const localFirst = ["bornite", "kimi-auto"];
   const order = deps
     .providers()
     .map((v) => v.name)

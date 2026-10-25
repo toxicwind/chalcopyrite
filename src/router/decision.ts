@@ -55,24 +55,24 @@ async function tryPins(body: ChatBody, ctx: StrategyDeps): Promise<{ result: Rou
 }
 
 /**
- * Candidate builder — pure. Herd gets the local role matrix (fallback if
- * the live catalog hasn't recorded any local models yet). Flock gets every
- * keyed, circuit-closed provider except herd; if that's empty, free
- * candidates minus herd.
+ * Candidate builder — pure. Bornite gets the local role matrix (fallback if
+ * the live catalog hasn't recorded any local models yet). Rhodochrosite gets every
+ * keyed, circuit-closed provider except bornite; if that's empty, free
+ * candidates minus bornite.
  */
-function buildCandidates(isHerd: boolean, ctx: StrategyDeps): Candidate[] {
+function buildCandidates(isLocal: boolean, ctx: StrategyDeps): Candidate[] {
   const out: Candidate[] = [];
-  if (isHerd) {
-    for (const model of ctx.servingModels("herd")) out.push({ provider: "herd", model });
+  if (isLocal) {
+    for (const model of ctx.servingModels("bornite")) out.push({ provider: "bornite", model });
     if (out.length === 0) {
-      out.push({ provider: "herd", model: LOCAL_ROLES.fast });
-      out.push({ provider: "herd", model: LOCAL_ROLES.quality });
-      out.push({ provider: "herd", model: LOCAL_ROLES.longctx });
+      out.push({ provider: "bornite", model: LOCAL_ROLES.fast });
+      out.push({ provider: "bornite", model: LOCAL_ROLES.quality });
+      out.push({ provider: "bornite", model: LOCAL_ROLES.longctx });
     }
     return out;
   }
   for (const provider of ctx.providers()) {
-    if (provider.name === "herd") continue;
+    if (provider.name === "bornite") continue;
     if (!ctx.keyOk(provider.name)) continue;
     if (!ctx.circuitOk(provider.name)) continue;
     for (const model of ctx.servingModels(provider.name)) {
@@ -81,7 +81,7 @@ function buildCandidates(isHerd: boolean, ctx: StrategyDeps): Candidate[] {
   }
   if (out.length === 0) {
     for (const [provider] of freeCandidates(ctx)) {
-      if (provider === "herd") continue;
+      if (provider === "bornite") continue;
       for (const model of ctx.servingModels(provider)) out.push({ provider, model });
     }
   }
@@ -95,15 +95,15 @@ export async function decide(body: ChatBody, ctx: StrategyDeps): Promise<Decisio
       ...pinned.result,
       headers: {
         "X-Chalcopyrite-Strategy": pinned.strategy,
-        "X-Routed-Via": pinned.result.provider === "herd" ? "herd" : "flock",
+        "X-Routed-Via": pinned.result.provider === "bornite" ? "bornite" : "rhodochrosite",
       },
     };
   }
 
   const model = typeof body.model === "string" ? body.model : undefined;
-  const isHerd = model != null && isLocalSwapModelId(model, LOCAL_CODING);
+  const isLocal = model != null && isLocalSwapModelId(model, LOCAL_CODING);
   const strategyName = pickStrategy(body, ctx);
-  const candidates = buildCandidates(isHerd, ctx);
+  const candidates = buildCandidates(isLocal, ctx);
 
   const result = await raceCandidates(
     candidates.map((c) => [c.provider, c.model] as [string, string]),
@@ -114,7 +114,7 @@ export async function decide(body: ChatBody, ctx: StrategyDeps): Promise<Decisio
     ...result,
     headers: {
       "X-Chalcopyrite-Strategy": strategyName,
-      "X-Routed-Via": isHerd ? "herd" : "flock",
+      "X-Routed-Via": isLocal ? "bornite" : "rhodochrosite",
     },
   };
 }

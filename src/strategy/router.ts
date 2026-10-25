@@ -695,7 +695,7 @@ try {
 // for LOCAL providers only (no cloud spend). A dead local backend earns
 // circuit strikes here so quarantine can engage before user traffic hits it;
 // consecutive successes keep the TCP path warm.
-const LOCAL_WARM = ["herd", "kimi-auto", "nim-local"];
+const LOCAL_WARM = ["bornite", "kimi-auto"];
 function startWarmStandby(): void {
   const tick = async () => {
     for (const p of LOCAL_WARM) {

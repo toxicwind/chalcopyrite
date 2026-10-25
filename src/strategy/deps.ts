@@ -43,7 +43,7 @@ import type { ProviderView, StrategyDeps } from "./types.ts";
 
 /** Default provider ordering — the router's canonical candidate list. */
 export const PROVIDER_ORDER = [
-  "herd",
+  "bornite",
   "nvidia",
   "openrouter",
   "groq",

@@ -118,13 +118,13 @@ export function buildCoding(
     auto: null,
     fcm: null,
     free: null,
-    fast: ["herd", roles.fast],
-    "local-fast": ["herd", roles.fast],
-    quality: ["herd", roles.quality],
-    "local-quality": ["herd", roles.quality],
-    longctx: ["herd", roles.longctx],
-    "local-longctx": ["herd", roles.longctx],
-    "local-auto": ["herd", roles.quality],
+    fast: ["bornite", roles.fast],
+    "local-fast": ["bornite", roles.fast],
+    quality: ["bornite", roles.quality],
+    "local-quality": ["bornite", roles.quality],
+    longctx: ["bornite", roles.longctx],
+    "local-longctx": ["bornite", roles.longctx],
+    "local-auto": ["bornite", roles.quality],
     ...pkgAliases,
   };
 }
@@ -139,7 +139,7 @@ export interface CatalogQuery {
 }
 
 export function firstModelFor(p: string, q: CatalogQuery, roles: LocalRoles = LOCAL_ROLES): string {
-  if (p === "herd") return roles.quality;
+  if (p === "bornite") return roles.quality;
   return q.servingModels(p)[0] || "";
 }
 
@@ -151,7 +151,7 @@ export function isLocalSwapModelId(
   roles: LocalRoles = LOCAL_ROLES,
 ): boolean {
   if (!model || model === "auto" || model === "fcm") return false;
-  if (model in coding && coding[model]?.[0] === "herd") return true;
+  if (model in coding && coding[model]?.[0] === "bornite") return true;
   if (model === roles.fast || model === roles.quality || model === roles.longctx) return true;
   return LOCAL_PREFIX_RE.test(model);
 }
@@ -258,14 +258,14 @@ export function resolveModel(
     const [p, m] = coding[model]!;
     if (!q.deadIds().has(m) && !q.isQuarantined(p, m)) return [p, m];
   }
-  if (isLocalSwapModelId(model, coding, roles)) return ["herd", model];
-  if (model === "auto" || model === "fcm") return ["herd", roles.quality];
+  if (isLocalSwapModelId(model, coding, roles)) return ["bornite", model];
+  if (model === "auto" || model === "fcm") return ["bornite", roles.quality];
   for (const p of q.providerNames()) {
     if (q.servingModels(p).includes(model)) return [p, model];
   }
   if (q.keyOk("openrouter")) return ["openrouter", model];
   if (q.keyOk("nvidia")) return ["nvidia", model];
-  return ["herd", roles.quality];
+  return ["bornite", roles.quality];
 }
 
 // ── Live-metadata free eligibility (cached per meta object) ────────────────

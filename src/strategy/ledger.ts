@@ -233,7 +233,7 @@ export function resolvePricing(provider: string, rawModel: string): ResolvedPric
   if (m.startsWith("models/")) m = m.slice(7); // google "models/" prefix
 
   // ---- known-free traffic ----
-  if (p === "herd" || p === "nim-local") return { key: `${p}/${m}`, pricing: ZERO, free: true };
+  if (p === "bornite") return { key: `${p}/${m}`, pricing: ZERO, free: true };
   if (p === "huggingface" || p === "github") return { key: `${p}/${m}`, pricing: ZERO, free: true };
   if (m.endsWith(":free")) return { key: `${p}/${m}`, pricing: ZERO, free: true };
 

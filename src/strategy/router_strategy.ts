@@ -427,7 +427,7 @@ export function pickWeighted(n = MAX_PARALLEL): [string, string][] {
   const live: string[] = [];
   const dead: string[] = [];
   for (const p of Object.keys(PROVIDERS)) {
-    if (p === "herd") continue; // bonus lane below — always races healthy
+    if (p === "bornite") continue; // bonus lane below — always races healthy
     if (!keyOk(p) || !state.circuitOk(p)) continue;
     (state.laneDead(p) ? dead : live).push(p);
   }
@@ -457,8 +457,8 @@ export function pickWeighted(n = MAX_PARALLEL): [string, string][] {
   // 15 min; herd served 98x). Appended AFTER the n-cut so no caller
   // can slice it off; hedged losers abort cleanly (499, no strike).
   if (
-    keyOk("herd") &&
-    state.circuitOk("herd") &&
+    keyOk("bornite") &&
+    state.circuitOk("bornite") &&
     !state.laneDead("herd")
   ) {
     const mid = firstUsableModelFor("herd");
@@ -773,7 +773,7 @@ export async function routeCascade(
   body: ChatBody,
   session: string,
 ): Promise<RouteResult> {
-  const localFirst = ["herd", "kimi-auto", "nim-local"];
+  const localFirst = ["bornite", "kimi-auto"];
   const order = Object.keys(PROVIDERS).sort((a, b) => {
     const la = localFirst.includes(a) ? 0 : 1;
     const lb = localFirst.includes(b) ? 0 : 1;

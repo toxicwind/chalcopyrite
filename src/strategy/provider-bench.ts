@@ -105,15 +105,6 @@ export const PROVIDERS: Record<string, ProviderDef> = {
       "models/gemma-4-31b-it",
     ],
   },
-  "nim-local": {
-    base: process.env.NIM_PROXY_BASE || "http://127.0.0.1:8000/v1",
-    keyEnv: "NIM_PROXY_API_KEY",
-    models: [
-      "nvidia/nemotron-3-super-120b-a12b",
-      "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
-      "deepseek-ai/deepseek-v4.1-flash",
-    ],
-  },
 };
 
 /** Deliberately NOT benched: herd (local compute not for tasks),

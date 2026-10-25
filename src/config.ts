@@ -35,9 +35,10 @@ const Schema = z.object({
    * kimi-auto (:25153) stay on the box.
    */
   bases: z.record(z.string(), z.string()).default({
-    "llama-swap": "http://127.0.0.1:25100/v1",
-    "herd": "http://127.0.0.1:25100/v1",
-    "nim-local": "http://127.0.0.1:8000/v1",
+    // :25100 is bornite, the local VRAM engine. It was registered twice
+    // here — "llama-swap" (the upstream project name) and "herd" (the
+    // estate name for the same service). One service, one identity.
+    "bornite": "http://127.0.0.1:25100/v1",
     "kimi-auto": "http://127.0.0.1:25153/v1",
     "openrouter": "https://openrouter.ai/api/v1",
     "nvidia": "https://integrate.api.nvidia.com/v1",
@@ -50,11 +51,11 @@ const Schema = z.object({
     "custom/zen": "https://opencode.ai/zen/v1",
     "custom/dots": "https://openrouter.ai/api/v1",
     "custom/copilot": "https://api.githubcopilot.com",
-    "custom/bodybuilder": "http://127.0.0.1:25193/v1",
-    "flock": "http://127.0.0.1:25193/v1",
-    "hodos": "http://127.0.0.1:25193/v1",
-    "omniroute": "http://127.0.0.1:20130/v1",
-    "vans": "http://127.0.0.1:20128/v1",
+    // :25193 is rhodochrosite, the multi-provider gateway. It used to be
+    // registered here under three names (flock, hodos, custom/bodybuilder)
+    // plus two dead ports (omniroute :20130, vans :20128). One service, one
+    // identity.
+    "rhodochrosite": "http://127.0.0.1:25193/v1",
   }),
 
   /** Hard ceiling on concurrent in-flight upstream calls. */
@@ -88,8 +89,8 @@ function readKeys(): Record<string, string> {
     out["custom/dots"] = out["openrouter"];
   if (process.env.GITHUB_TOKEN && !out["custom/copilot"])
     out["custom/copilot"] = process.env.GITHUB_TOKEN;
-  if (!out["flock"] && process.env.FLOCK_API_KEY)
-    out["flock"] = process.env.FLOCK_API_KEY;
+  if (!out["rhodochrosite"] && process.env.HODOS_API_KEY)
+    out["rhodochrosite"] = process.env.HODOS_API_KEY;
   return out;
 }
 
