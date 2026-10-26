@@ -10,7 +10,7 @@
  * spec shape is a new entry in the table, not another branch in the function.
  */
 import { existsSync, readFileSync } from "node:fs";
-import type { ProviderDef } from "../../../../../../packages/providers/src/index.ts";
+import type { ProviderDef } from "/home/toxic/estate/packages/providers/src/index.ts";
 import type { ProviderView } from "./types.ts";
 
 // ── timing / strategy constants, frozen ────────────────────────────────────

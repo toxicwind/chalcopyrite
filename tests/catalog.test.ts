@@ -72,8 +72,7 @@ describe("loadLiveCatalog", () => {
   test("rejects a contract it does not understand", () => {
     const loaded = loadLiveCatalog(catalogFile({ ...FIXTURE, contract: "something-else/v9" }));
     if (loaded.status !== "unknown-contract") {
-      expect(loaded.status).toBe("unknown-contract");
-      return;
+      throw new Error(`expected unknown-contract, got ${loaded.status}`);
     }
     expect(loaded.contract.saw).toBe("something-else/v9");
     expect(loaded.contract.expected).toContain("estate-mimetite/live-catalog/v1");

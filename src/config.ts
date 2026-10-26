@@ -111,23 +111,21 @@ function readRpm(): Record<string, number> {
  * loadConfig so *_API_KEY entries are visible to readKeys().
  */
 export function loadSecretsFiles(): void {
-  for (const path of [`${homedir()}/.secrets`, "/home/toxic/.secrets"]) {
-    if (!existsSync(path)) continue;
-    try {
-      for (let line of readFileSync(path, "utf8").split("\n")) {
-        line = line.trim();
-        if (!line || line.startsWith("#")) continue;
-        if (line.startsWith("export ")) line = line.slice(7);
-        const eq = line.indexOf("=");
-        if (eq < 1) continue;
-        const k = line.slice(0, eq).trim();
-        const v = line.slice(eq + 1).trim().replace(/^['"]|['"]$/g, "");
-        if (k && v && !process.env[k]) process.env[k] = v;
-      }
-    } catch (e) {
-      console.error(`chalcopyrite: loadSecretsFiles ${path}:`, e);
+  // Secrets live in the secretsmith keyring (SSOT 2026-10-18); ~/.secrets is
+  // deleted (2026-10-26). The drop-in shells out once and overlays env.
+  try {
+    const r = Bun.spawnSync(["secretsmith", "env"]);
+    if (r.exitCode !== 0) return;
+    for (let line of r.stdout.toString().split("\n")) {
+      line = line.trim();
+      const eq = line.indexOf("=");
+      if (eq < 1) continue;
+      const k = line.slice(0, eq).trim();
+      if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(k)) continue;
+      const v = line.slice(eq + 1).trim().replace(/^['"]|['"]$/g, "");
+      if (k && v && !process.env[k]) process.env[k] = v;
     }
-  }
+  } catch {}
 }
 
 export function loadConfig(overrides: Partial<Config> = {}): Config {

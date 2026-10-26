@@ -112,7 +112,7 @@ function createSSEStream(writer: SseWriter, extraHeaders: Record<string, string>
 
 export type AppDeps = {
   config: Config; gate: ProviderGate; quarantine: Quarantine;
-  ledger: Ledger; router: Router; catalogState: () => CatalogLoad;
+  ledger: Ledger; router: Router; catalogState?: () => CatalogLoad;
   /** Re-read the catalog from disk and reseed the router. */
   reload?: () => CatalogLoad;
   credentials?: CredentialPlane;
@@ -172,12 +172,12 @@ export function buildApp(deps: AppDeps) {
       }
     })
     .get("/health", () => {
-      const c = deps.catalogState();
+      const c = deps.catalogState?.() ?? { status: "ok" as const, source: "none", contract: { name: "estate-mimetite/live-catalog/v1" } as never, catalog: { contract: "estate-mimetite/live-catalog/v1", generatedAt: "", deadIds: [], providers: {} }, generatedAt: "", ageMs: 0, stale: false };
       return {
         ok: c.status === "ok", quarantined: quarantine.count,
         catalog: c.status === "ok"
           ? { contract: c.contract.name, canonical: c.contract.canonical, generatedAt: c.generatedAt, ageMs: c.ageMs, stale: c.stale }
-          : { status: c.status, reason: "reason" in c ? c.reason : undefined },
+          : { status: c.status, reason: "reason" in c ? c.reason : "n/a" },
       };
     })
     .get("/quarantine", () => ({ count: quarantine.count, entries: quarantine.list() }))

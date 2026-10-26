@@ -20,7 +20,7 @@ export type AuditReport = {
 
 export type AuditInput = {
   readonly bornite: string;
-  readonly herdToken: string;
+  readonly borniteToken: string;
   readonly flock: string;
   readonly flockToken: string;
 };

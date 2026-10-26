@@ -407,7 +407,7 @@ export const LING_DEFAULT: [string, string] = [
 
 export function pickWeighted(
   deps: StrategyDeps,
-  n = MAX_PARALLEL,
+  n: number = MAX_PARALLEL,
 ): [string, string][] {
   // Dead-lane exclusion (503-forensics 2026-09-21): providers whose recent
   // attempts all failed sit out of the race — they never win, they only

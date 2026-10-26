@@ -27,7 +27,7 @@ import {
   keyOk,
   log,
 } from "./router_config.ts";
-import { discover } from "../../../../../../packages/providers/src/index.ts";
+import { discover } from "/home/toxic/estate/packages/providers/src/index.ts";
 import { applySigmaBackfill, sigmaCatalogInfo } from "./sigma-enrich.ts";
 
 const META_STATE_PATH = "/home/toxic/estate/.state/live-models.json";

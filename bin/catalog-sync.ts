@@ -52,7 +52,7 @@ function secretFrom(name: string): string {
 
 const result = await audit({
   bornite: `http://127.0.0.1:${portFromEnv("HERD_PORT", "25100")}`,
-  herdToken: secretFrom("HERD_KEY") || "bornite",
+  borniteToken: secretFrom("HERD_KEY") || "bornite",
   flock: `http://127.0.0.1:${portFromEnv("FLOCK_ROUTER_PORT", "25193")}`,
   flockToken: secretFrom("FLOCK_KEY"),
 });

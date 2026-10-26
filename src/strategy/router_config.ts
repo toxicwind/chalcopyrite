@@ -11,7 +11,7 @@ import {
   MODEL_ALIASES as PKG_MODEL_ALIASES,
   DEAD_MODEL_IDS as PKG_DEAD_MODEL_IDS,
   type ProviderDef,
-} from "../../../../../../packages/providers/src/index.ts";
+} from "/home/toxic/estate/packages/providers/src/index.ts";
 
 // ---------------------------------------------------------------------------
 // Secrets + local stack env (mise loads these; standalone bun needs them too)
@@ -58,7 +58,7 @@ if (!_portRaw) {
 export const PORT = parseInt(_portRaw, 10);
 
 export const DB_PATH =
-  process.env.estate-scripts_DB || "/home/toxic/estate/var/data/estate-scripts_router.db";
+  process.env["estate-scripts_DB"] || "/home/toxic/estate/var/data/estate-scripts_router.db";
 
 export const MAX_PARALLEL = 4;
 

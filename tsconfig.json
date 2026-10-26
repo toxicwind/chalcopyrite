@@ -12,7 +12,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node", "bun"]
+    "types": ["node"], "paths": {"bun": ["./node_modules/bun-types"]}
   },
   // `src/*.ts` typechecked only the top level: src/router/, src/auth/ and the
   // tests were never compiled, so ten unresolved imports (../shared,

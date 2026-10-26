@@ -2,11 +2,11 @@ import type { StrategyDeps } from "../strategy/types.ts";
 
 export interface RouterGovernorOptions {
   /** Max concurrent requests allowed to bornite backend */
-  herdConcurrency: number;
+  borniteConcurrency: number;
   /** Max concurrent requests allowed to flock backend */
   flockConcurrency: number;
   /** Max requests per key per window for bornite backend */
-  herdKeyQuota: number;
+  borniteKeyQuota: number;
   /** Max requests per key per window for flock backend */
   flockKeyQuota: number;
   /** Quota window in seconds */
@@ -21,7 +21,7 @@ export interface RouterGovernorOptions {
  * - Per-key quotas for each backend
  */
 export class RouterGovernor {
-  private herdInflight = 0;
+  private borniteInflight = 0;
   private flockInflight = 0;
   private keyUsage = new Map<string, { count: number; resetTime: number }>();
   
@@ -104,9 +104,9 @@ export class RouterGovernor {
 
 // Default options - conservative limits suitable for testing
 export const defaultRouterGovernorOptions: RouterGovernorOptions = {
-  herdConcurrency: 10,
+  borniteConcurrency: 10,
   flockConcurrency: 20,
-  herdKeyQuota: 100,
+  borniteKeyQuota: 100,
   flockKeyQuota: 1000,
   quotaWindowMs: 60_000, // 1 minute
 };

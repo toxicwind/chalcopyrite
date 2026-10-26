@@ -14,7 +14,7 @@
 
 import { createHash } from "node:crypto";
 import { watch, readFileSync, existsSync } from "node:fs";
-import { handleMeshRequest } from "../../../../../../src/lib/ghas-mesh-features.ts";
+import { handleMeshRequest } from "/home/toxic/estate/src/lib/ghas-mesh-features.ts";
 import type { ChatBody } from "./router_types.ts";
 import { CODING, PROVIDERS, keyOk, getKey, STRATEGY, MAX_PARALLEL, PORT, json, log, DB_PATH, isExplicit, normalizeModelSpec, resolveModel, loadEnvFile, catalog, catalogModelsFor } from "./router_config.ts";
 import { LIVE_MODEL_META, modelFree } from "./router_config.ts";
@@ -190,7 +190,7 @@ const server = Bun.serve({
 
     if (path.startsWith("/mesh")) {
       const m = await handleMeshRequest(req, {
-        service: "estate-scripts-router",
+        service: "estate-router",
         version: "v3.2",
       });
       if (m) return m;

@@ -14,10 +14,10 @@
  * The policy tier's CircuitPolicy.recordOutcome already implements the
  * circuit half; record() routes the outcome to every sink.
  */
-import { EloEngine } from "../../../../../flock/ts/policy/elo.ts";
-import { CircuitPolicy } from "../../../../../flock/ts/policy/circuit.ts";
-import { PolicyHealthDB } from "../../../../../flock/ts/policy/health.ts";
-import { DEAD_MODEL_IDS, ModelCatalog, MODEL_ALIASES, PROVIDER_DEFS } from "../../../../../../packages/providers/src/index.ts";
+import { EloEngine } from "./policy/elo.ts";
+import { CircuitPolicy } from "./policy/circuit.ts";
+import { PolicyHealthDB } from "./policy/health.ts";
+import { DEAD_MODEL_IDS, ModelCatalog, MODEL_ALIASES, PROVIDER_DEFS } from "/home/toxic/estate/packages/providers/src/index.ts";
 import { Governor, isWorkerExhausted } from "./governor.ts";
 import { NvidiaKeyPool } from "./nvidia-keys.ts";
 import {
