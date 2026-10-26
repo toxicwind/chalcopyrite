@@ -11,7 +11,8 @@
     "doctor": "bun run src/doctor.ts",
     "typecheck": "tsc --noEmit",
     "build": "bun run typecheck",
-    "check": "bun run typecheck && bun test"
+    "check": "bun run typecheck && bun test",
+    "resect": "resect"
   },
   "dependencies": {
     "elysia": "^1.4.30",
