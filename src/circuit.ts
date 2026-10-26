@@ -26,7 +26,7 @@ import type { Config } from "./config.ts";
 export type BreakerState = "closed" | "open" | "half-open";
 
 /** Backstop only; must exceed the Router's hard ceiling. */
-const REQUEST_TIMEOUT_MS = Number(process.env.CUTTINGGATE_REQUEST_TIMEOUT_MS) || 125_000;
+const REQUEST_TIMEOUT_MS = Number(process.env.CHALCOPYRITE_REQUEST_TIMEOUT_MS) || 125_000;
 
 type Breaker = CircuitBreaker<[unknown], unknown>;
 

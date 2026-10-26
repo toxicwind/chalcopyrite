@@ -101,8 +101,8 @@ const envMs = (name: string, fallback: number): number => {
   return Number.isFinite(n) && n > 0 ? n : fallback;
 };
 
-const HARD_CEILING_MS = envMs("CUTTINGGATE_DEADLINE_MS", 120_000);
-const ATTEMPT_MS = envMs("CUTTINGGATE_ATTEMPT_MS", 60_000);
+const HARD_CEILING_MS = envMs("CHALCOPYRITE_DEADLINE_MS", 120_000);
+const ATTEMPT_MS = envMs("CHALCOPYRITE_ATTEMPT_MS", 60_000);
 const ZEN_ATTEMPT_MS = 12_000;
 
 /** Statuses that say something about the KEY (reported to the credential plane). */

@@ -5,7 +5,7 @@
  * without parsing prose. The catalog is watched (and reloadable via
  * POST /admin/reload or SIGHUP), so a regen lands without a restart.
  *
- * Client auth: when CUTTINGGATE_CLIENT_KEYS (or the legacy
+ * Client auth: when CHALCOPYRITE_CLIENT_KEYS (or the legacy
  * ESTATE_CLIENT_KEYS) is set, every route except /health requires a
  * matching Bearer / x-api-key. Unset = open (localhost is the trust boundary).
  *
@@ -28,7 +28,7 @@ import { COPILOT_PROVIDER } from "./copilot.ts";
 import { DOTS_MODELS, DOTS_PROVIDER, DOTS_MODEL } from "./dots.ts";
 import { buildCoding, LOCAL_ROLES, normalizeModelSpec, resolveModel, type CatalogQuery } from "./strategy/catalog.ts";
 
-const log = pino({ level: process.env.CUTTINGGATE_LOG_LEVEL ?? "info" });
+const log = pino({ level: process.env.CHALCOPYRITE_LOG_LEVEL ?? "info" });
 
 const CODES = {
   auth_missing: 401, auth_invalid: 401, model_quarantined: 409,
@@ -50,7 +50,7 @@ const CODING = buildCoding(LOCAL_ROLES, {});
 const digest = (s: string): Buffer => createHash("sha256").update(s).digest();
 
 function parseClientKeys(): Buffer[] {
-  const raw = process.env.CUTTINGGATE_CLIENT_KEYS ?? process.env.ESTATE_CLIENT_KEYS ?? "";
+  const raw = process.env.CHALCOPYRITE_CLIENT_KEYS ?? process.env.ESTATE_CLIENT_KEYS ?? "";
   return raw.split(",").map((s) => s.trim()).filter(Boolean).map(digest);
 }
 
@@ -211,9 +211,9 @@ export function buildApp(deps: AppDeps) {
       credentials: deps.credentials?.snapshot() ?? [],
     }))
     .get("/metrics", () => ({
-      cuttinggate_quarantined: quarantine.count,
-      cuttinggate_model_empty_strikes: Object.fromEntries([...ledger.models()].map((m) => [m, deps.gate.emptyStrikes(m)])),
-      cuttinggate_race_total: ledger.total(),
+      chalcopyrite_quarantined: quarantine.count,
+      chalcopyrite_model_empty_strikes: Object.fromEntries([...ledger.models()].map((m) => [m, deps.gate.emptyStrikes(m)])),
+      chalcopyrite_race_total: ledger.total(),
     }))
     .get("/v1/models", () => ({
       object: "list",
@@ -489,7 +489,7 @@ export async function main(): Promise<void> {
   } catch (e) { console.error(`keypool config unreadable, running without the credential plane: ${(e as Error).message}`); }
 
   const router = new Router(config, gate, quarantine, ledger, credentials, pauser);
-  const catalogPath = process.env.CUTTINGGATE_CATALOG ?? DEFAULT_CATALOG_PATH;
+  const catalogPath = process.env.CHALCOPYRITE_CATALOG ?? DEFAULT_CATALOG_PATH;
   let current: CatalogLoad = loadLiveCatalog(catalogPath);
   if (current.status !== "ok") { process.stderr.write(`chalcopyrite: catalog load failed: ${current.status} (${catalogPath})\n`); process.exit(1); }
   const pairs = seedRouter(router, quarantine, current.catalog);

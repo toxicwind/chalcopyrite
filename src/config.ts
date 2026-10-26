@@ -135,8 +135,8 @@ export function loadConfig(overrides: Partial<Config> = {}): Config {
     keys: readKeys(),
     rpm: readRpm(),
     ...(process.env.CHALCOPYRITE_PORT ? { port: process.env.CHALCOPYRITE_PORT } : {}),
-    ...(process.env.CUTTINGGATE_HOST ? { host: process.env.CUTTINGGATE_HOST } : {}),
-    ...(process.env.CUTTINGGATE_LOG_LEVEL ? { logLevel: process.env.CUTTINGGATE_LOG_LEVEL } : {}),
+    ...(process.env.CHALCOPYRITE_HOST ? { host: process.env.CHALCOPYRITE_HOST } : {}),
+    ...(process.env.CHALCOPYRITE_LOG_LEVEL ? { logLevel: process.env.CHALCOPYRITE_LOG_LEVEL } : {}),
     ...overrides,
   });
   if (!parsed.success) {

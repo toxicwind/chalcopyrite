@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "cuttinggate",
+      "name": "chalcopyrite",
       "dependencies": {
         "@sinclair/typebox": "^0.34.52",
         "bottleneck": "^2.19.5",

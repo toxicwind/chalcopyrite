@@ -40,7 +40,7 @@ export class Ledger {
   private dirty = new Set<string>();
   private timer: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private path: string = process.env.CUTTINGGATE_LEDGER ?? DEFAULT_PATH) {
+  constructor(private path: string = process.env.CHALCOPYRITE_LEDGER ?? DEFAULT_PATH) {
     this.load();
   }
 
