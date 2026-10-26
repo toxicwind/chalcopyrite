@@ -29,7 +29,7 @@ Elo, circuits, health analytics) and below the serving layer.
   re-emit → Gemini ledger `recordUsage` (best-effort).
 - **Race doctrine**: first-substantive-wins; losers abort cleanly; empty
   completions are never winners — they feed the flap tracker.
-- **herd bonus lane**: always races when healthy, appended after the
+- **bornite bonus lane**: always races when healthy, appended after the
   n-cut so no caller can slice it off.
 - **LONGCTX pin**: est-token gate (>200k) → direct call to the KEYED
   `nvidia/nemotron-3-super-120b-a12b` lane, outside the race; 10/day cap

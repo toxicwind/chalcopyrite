@@ -408,10 +408,10 @@ strategy_detail: STRATEGY === "auto" ? "auto: ast_race (code-shaped) -> free rac
       return json({ status: "ok", reloaded: hotReload("http") });
     }
 
-    // 404 event intake for non-TS consumers (Go herd). The catalog is the
+    // 404 event intake for non-TS consumers (Go bornite). The catalog is the
     // brain: a serve-time 404 quarantines the id immediately in the unified
-    // catalog and the live export is rewritten, so herd picks it up from the
-    // file. Herd reports the event; the quarantine decision lives here, once.
+    // catalog and the live export is rewritten, so bornite picks it up from the
+    // file. Bornite reports the event; the quarantine decision lives here, once.
     if (req.method === "POST" && path === "/admin/catalog/serve-404") {
       if (AUTH) {
         const id = await identifyRequest(req, AUTH.admin, AUTH.store);

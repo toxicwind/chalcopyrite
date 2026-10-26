@@ -1,11 +1,11 @@
 import type { StrategyDeps } from "../strategy/types.ts";
 
 export interface RouterGovernorOptions {
-  /** Max concurrent requests allowed to herd backend */
+  /** Max concurrent requests allowed to bornite backend */
   herdConcurrency: number;
   /** Max concurrent requests allowed to flock backend */
   flockConcurrency: number;
-  /** Max requests per key per window for herd backend */
+  /** Max requests per key per window for bornite backend */
   herdKeyQuota: number;
   /** Max requests per key per window for flock backend */
   flockKeyQuota: number;
@@ -14,10 +14,10 @@ export interface RouterGovernorOptions {
 }
 
 /**
- * Router Governor - manages concurrency caps and per-key quotas for herd and flock backends.
+ * Router Governor - manages concurrency caps and per-key quotas for bornite and flock backends.
  *
  * Separate tracking for:
- * - Backend-level concurrency caps (herd vs flock)
+ * - Backend-level concurrency caps (bornite vs flock)
  * - Per-key quotas for each backend
  */
 export class RouterGovernor {
@@ -30,7 +30,7 @@ export class RouterGovernor {
   /**
    * Try to acquire admission for a request.
    * @param key - Identifier for quota tracking (typically API key or user ID)
-   * @param isHerd - True for herd backend, false for flock backend
+   * @param isHerd - True for bornite backend, false for flock backend
    * @returns Permit object with release() method, or null if admission refused
    */
   admit(key: string, isHerd: boolean): { release(): void } | null {
@@ -38,10 +38,10 @@ export class RouterGovernor {
     
     // Check backend concurrency cap
     if (isHerd) {
-      if (this.herdInflight >= this.options.herdConcurrency) {
+      if (this.borniteInflight >= this.options.borniteConcurrency) {
         return null;
       }
-      this.herdInflight += 1;
+      this.borniteInflight += 1;
     } else {
       if (this.flockInflight >= this.options.flockConcurrency) {
         return null;
@@ -58,11 +58,11 @@ export class RouterGovernor {
       usage.resetTime = now + this.options.quotaWindowMs;
     }
     
-    const quota = isHerd ? this.options.herdKeyQuota : this.options.flockKeyQuota;
+    const quota = isHerd ? this.options.borniteKeyQuota : this.options.flockKeyQuota;
     if (usage.count >= quota) {
       // Consumed quota, rollback concurrency increment
       if (isHerd) {
-        this.herdInflight -= 1;
+        this.borniteInflight -= 1;
       } else {
         this.flockInflight -= 1;
       }
@@ -81,7 +81,7 @@ export class RouterGovernor {
   /** Release admission backend concurrency tracking */
   private release(key: string, isHerd: boolean): void {
     if (isHerd) {
-      this.herdInflight = Math.max(0, this.herdInflight - 1);
+      this.borniteInflight = Math.max(0, this.borniteInflight - 1);
     } else {
       this.flockInflight = Math.max(0, this.flockInflight - 1);
     }
@@ -93,9 +93,9 @@ export class RouterGovernor {
   /** Get current stats for monitoring/debugging */
   getStats() {
     return {
-      herdInflight: this.herdInflight,
+      herdInflight: this.borniteInflight,
       flockInflight: this.flockInflight,
-      herdConcurrencyLimit: this.options.herdConcurrency,
+      herdConcurrencyLimit: this.options.borniteConcurrency,
       flockConcurrencyLimit: this.options.flockConcurrency,
       activeKeys: this.keyUsage.size,
     };

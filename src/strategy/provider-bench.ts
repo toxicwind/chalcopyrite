@@ -107,7 +107,7 @@ export const PROVIDERS: Record<string, ProviderDef> = {
   },
 };
 
-/** Deliberately NOT benched: herd (local compute not for tasks),
+/** Deliberately NOT benched: bornite (local compute not for tasks),
  *  kimi-auto (Moonshot 429 — no top-up, Chris's call), openrouter
  *  (already has GuideLLM priors from benchlink). */
 

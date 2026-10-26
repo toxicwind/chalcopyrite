@@ -22,7 +22,7 @@ export type Decision = RouteResult & { headers: Record<string, string> };
 type Candidate = { readonly provider: string; readonly model: string };
 
 /**
- * Local aliases (fast / quality / longctx / local-*) resolve to herd. Passing
+ * Local aliases (fast / quality / longctx / local-*) resolve to bornite. Passing
  * `{}` here, as the previous build did, meant aliases were never recognized
  * as local and were mis-routed to the flock field.
  */

@@ -27,7 +27,7 @@ const FIXTURE: LiveCatalog = {
   generatedAt: "2026-10-02T00:00:00.000Z",
   deadIds: ["meta-llama/llama-3.3-70b-instruct"],
   providers: {
-    "herd": { serving: ["beellama/qwen-flash-64k", "beellama/exaone-4-0-1-2b-iq4xs"], quarantined: [], discovered: true },
+    "bornite": { serving: ["beellama/qwen-flash-64k", "beellama/exaone-4-0-1-2b-iq4xs"], quarantined: [], discovered: true },
     nvidia: { serving: ["nvidia/nemotron-3.5-lightning-30b-a3b"], quarantined: ["nvidia/retired-slug"], discovered: true },
   },
 };
@@ -76,7 +76,7 @@ describe("loadLiveCatalog", () => {
       return;
     }
     expect(loaded.contract.saw).toBe("something-else/v9");
-    expect(loaded.contract.expected).toContain("estate-pinax/live-catalog/v1");
+    expect(loaded.contract.expected).toContain("estate-mimetite/live-catalog/v1");
   });
 
   test("a missing file is a reason, not a throw", () => {

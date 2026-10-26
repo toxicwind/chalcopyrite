@@ -107,7 +107,7 @@ export const UA = "Mozilla/5.0 (compatible; Estate-Flock/3.1)";
 // ---------------------------------------------------------------------------
 export const BORNITE_V1 =
   process.env.LLM_BASE_URL ||
-  process.env.HERD_V1 || process.env.BORNITE_V1 ||
+  process.env.BORNITE_V1 || process.env.BORNITE_V1 ||
   "http://127.0.0.1:25100/v1";
 
 export function loadLocalRoleModels(): {
@@ -157,7 +157,7 @@ function effectiveDefs(): ProviderDef[] {
     if (d.name === "bornite")
       return { ...d, baseUrl: process.env.NIM_PROXY_BASE || d.baseUrl };
     // kimi-auto sidecar shim (pitchfork daemon kimi-auto-shim): rewrites
-    // model "kimi-auto" -> resolver's current best Kimi, forwards to herd.
+    // model "kimi-auto" -> resolver's current best Kimi, forwards to bornite.
     // Kimi-only by design (shim 503s when no Kimi candidate is healthy).
     if (d.name === "kimi-auto")
       return {
@@ -304,7 +304,7 @@ export const CODING: Record<string, [string, string] | null> = {
   fcm: null,
   // free: route through the `free` strategy (local + all :free cloud models)
   free: null,
-  // Local-first ranked roles (herd exclusive matrix) — runtime-dynamic
+  // Local-first ranked roles (bornite exclusive matrix) — runtime-dynamic
   // from best-models.json. These overlay the package's static alias map;
   // everything below comes from the master providers package.
   fast: ["bornite", LOCAL_ROLES.fast],
@@ -443,7 +443,7 @@ export function resolveModel(model: string): [string, string] {
     // the healthy field instead of burning a 404 on a known-bad id.
     if (!DEAD_MODEL_IDS.has(m) && !catalog.isQuarantined(p, m)) return [p, m];
   }
-  // Prefer herd for any local GGUF id so hybrid never sends GPU models to Gemini
+  // Prefer bornite for any local GGUF id so hybrid never sends GPU models to Gemini
   if (isLocalSwapModelId(model)) return ["bornite", model];
   if (model === "auto" || model === "fcm") {
     // local-first auto: quality role on swap

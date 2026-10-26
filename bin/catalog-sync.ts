@@ -2,7 +2,7 @@
 /**
  * catalog-sync — make the live catalog match reality.
  *
- * Probes both gateways (herd, flock), then rewrites the live catalog:
+ * Probes both gateways (bornite, flock), then rewrites the live catalog:
  * every serving id no live gateway backs is moved to its provider's
  * quarantined list (disable-with-receipt — nothing is destroyed, ids come
  * back by re-running sync once their gateway serves them again).
@@ -39,7 +39,7 @@ function secretFrom(name: string): string {
   } catch {
     /* no vault */
   }
-  for (const file of [`${home}/.tau/flock.key`, `${home}/.tau/herd.key`]) {
+  for (const file of [`${home}/.tau/flock.key`, `${home}/.tau/bornite.key`]) {
     try {
       const v = readFileSync(file, "utf8").trim();
       if (v) return v;
@@ -51,8 +51,8 @@ function secretFrom(name: string): string {
 }
 
 const result = await audit({
-  herd: `http://127.0.0.1:${portFromEnv("HERD_PORT", "25100")}`,
-  herdToken: secretFrom("HERD_KEY") || "herd",
+  bornite: `http://127.0.0.1:${portFromEnv("HERD_PORT", "25100")}`,
+  herdToken: secretFrom("HERD_KEY") || "bornite",
   flock: `http://127.0.0.1:${portFromEnv("FLOCK_ROUTER_PORT", "25193")}`,
   flockToken: secretFrom("FLOCK_KEY"),
 });

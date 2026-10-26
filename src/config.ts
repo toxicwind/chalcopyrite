@@ -31,12 +31,12 @@ const Schema = z.object({
    * Provider base URLs. Observed live on 2026-10-02 from the incumbent
    * estate-scripts-router-ts /status: every provider the live catalog serves
    * gets a base here, otherwise Router.call throws "no base url" at
-   * serve time. Local-first: herd (:25100), nim-local (:8000) and
+   * serve time. Local-first: bornite (:25100), nim-local (:8000) and
    * kimi-auto (:25153) stay on the box.
    */
   bases: z.record(z.string(), z.string()).default({
     // :25100 is bornite, the local VRAM engine. It was registered twice
-    // here — "llama-swap" (the upstream project name) and "herd" (the
+    // here — "llama-swap" (the upstream project name) and "bornite" (the
     // estate name for the same service). One service, one identity.
     "bornite": "http://127.0.0.1:25100/v1",
     "kimi-auto": "http://127.0.0.1:25153/v1",
@@ -52,7 +52,7 @@ const Schema = z.object({
     "custom/dots": "https://openrouter.ai/api/v1",
     "custom/copilot": "https://api.githubcopilot.com",
     // :25193 is rhodochrosite, the multi-provider gateway. It used to be
-    // registered here under three names (flock, hodos, custom/bodybuilder)
+    // registered here under three names (flock, rhodochrosite, custom/bodybuilder)
     // plus two dead ports (omniroute :20130, vans :20128). One service, one
     // identity.
     "rhodochrosite": "http://127.0.0.1:25193/v1",
@@ -89,8 +89,8 @@ function readKeys(): Record<string, string> {
     out["custom/dots"] = out["openrouter"];
   if (process.env.GITHUB_TOKEN && !out["custom/copilot"])
     out["custom/copilot"] = process.env.GITHUB_TOKEN;
-  if (!out["rhodochrosite"] && process.env.HODOS_API_KEY)
-    out["rhodochrosite"] = process.env.HODOS_API_KEY;
+  if (!out["rhodochrosite"] && process.env.RHODOCHROSITE_API_KEY)
+    out["rhodochrosite"] = process.env.RHODOCHROSITE_API_KEY;
   return out;
 }
 

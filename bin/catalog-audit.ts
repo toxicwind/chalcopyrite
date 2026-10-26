@@ -53,7 +53,7 @@ function secretFrom(name: string): string {
     /* no vault */
   }
   // Standalone key files, for credentials kept out of the vault on purpose.
-  for (const file of [`${home}/.tau/flock.key`, `${home}/.tau/herd.key`]) {
+  for (const file of [`${home}/.tau/flock.key`, `${home}/.tau/bornite.key`]) {
     try {
       const v = readFileSync(file, "utf8").trim();
       if (v) return v;
@@ -66,8 +66,8 @@ function secretFrom(name: string): string {
 
 const flockToken = secretFrom("FLOCK_KEY");
 const auditResult = await audit({
-  herd: gatewayRoot(`http://127.0.0.1:${portFromEnv("HERD_PORT", "25100")}`),
-  herdToken: secretFrom("HERD_KEY") || "herd",
+  bornite: gatewayRoot(`http://127.0.0.1:${portFromEnv("HERD_PORT", "25100")}`),
+  herdToken: secretFrom("HERD_KEY") || "bornite",
   flock: gatewayRoot(`http://127.0.0.1:${portFromEnv("FLOCK_ROUTER_PORT", "25193")}`),
   flockToken,
 });

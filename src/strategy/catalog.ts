@@ -43,7 +43,7 @@ export function isAst(text: string): boolean {
   return Boolean(text && (AST_RE.test(text.slice(0, 5000)) || text.includes("```")));
 }
 
-// ── local role models (herd) ───────────────────────────────────────────────
+// ── local role models (bornite) ───────────────────────────────────────────────
 export interface LocalRoles {
   fast: string;
   quality: string;

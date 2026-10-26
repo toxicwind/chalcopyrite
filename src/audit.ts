@@ -1,7 +1,7 @@
 /**
  * chalcopyrite — live catalog audit implementation.
  *
- * Backs bin/catalog-audit.ts: probes both gateways (herd, flock), diffs the
+ * Backs bin/catalog-audit.ts: probes both gateways (bornite, flock), diffs the
  * live catalog against what each gateway actually serves, and names every id
  * the estate believes it can serve that no live gateway accepts.
  */
@@ -19,7 +19,7 @@ export type AuditReport = {
 };
 
 export type AuditInput = {
-  readonly herd: string;
+  readonly bornite: string;
   readonly herdToken: string;
   readonly flock: string;
   readonly flockToken: string;
@@ -27,7 +27,7 @@ export type AuditInput = {
 
 export type AuditResult = { readonly ok: true; readonly report: AuditReport } | { readonly ok: false; readonly reason: string };
 
-async function probeGateway(gateway: "herd" | "flock", root: string, token: string): Promise<Probe> {
+async function probeGateway(gateway: "bornite" | "flock", root: string, token: string): Promise<Probe> {
   const t0 = Date.now();
   try {
     const res = await fetch(`${root}/v1/models`, {
@@ -56,11 +56,11 @@ export async function audit(input: AuditInput): Promise<AuditResult> {
     return { ok: false, reason: `catalog load: ${loaded.status}: ${why}` };
   }
 
-  const [herd, flock] = await Promise.all([
-    probeGateway("herd", input.herd, input.herdToken),
+  const [bornite, flock] = await Promise.all([
+    probeGateway("bornite", input.bornite, input.borniteToken),
     probeGateway("flock", input.flock, input.flockToken),
   ]);
-  const probes = [herd, flock];
+  const probes = [bornite, flock];
   const live = new Set<string>();
   for (const p of probes) {
     if (!p.ok) continue;

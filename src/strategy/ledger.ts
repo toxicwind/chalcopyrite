@@ -12,7 +12,7 @@
  *    cached on disk (refresh: `bun ledger.ts pricing refresh`).
  *  - Unknown models are NEVER silently priced as something else: they are
  *    recorded with NULL cost_usd and surfaced as "unpriced" in reports.
- *  - Known-free traffic (local herd, :free tiers, free inference) is
+ *  - Known-free traffic (local bornite, :free tiers, free inference) is
  *    recorded at $0.00 — free is a price, not a gap.
  *
  * Cost semantics per row:
@@ -562,7 +562,7 @@ if (import.meta.main) {
     const c = loadORCache();
     console.log(`openrouter: dynamic via https://openrouter.ai/api/v1/models` +
       (c ? ` (cache: ${Object.keys(c.models).length} models, fetched ${c.fetchedAt})` : ` (no cache — run 'pricing refresh')`));
-    console.log(`free: herd, nim-local, huggingface, github, *:free tiers ($0.00)`);
+    console.log(`free: bornite, nim-local, huggingface, github, *:free tiers ($0.00)`);
     console.log(`unpriced: nvidia/NIM (credit billing, no verified per-token rate), kimi-auto, unknown models`);
   } else if (cmd === "status") {
     console.log(JSON.stringify(getStatus(), null, 2));

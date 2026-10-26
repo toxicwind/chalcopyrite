@@ -2,12 +2,12 @@
  * Credential plane — the piece flock never had.
  *
  * flock loads ONE key per provider at boot and keeps it forever, so a dead
- * key produces a bare 502 with no diagnosis and no rotation. herd solved this
+ * key produces a bare 502 with no diagnosis and no rotation. bornite solved this
  * with a separate keypool service on :25109. chalcopyrite folds it in, because
  * a router that knows a model is dead but cannot rotate a dead key is only
  * half a router.
  *
- * Ported from estate/config/keypools.yaml + estate/bin/herd-keypool.py.
+ * Ported from estate/config/keypools.yaml + estate/bin/bornite-keypool.py.
  *
  *   401/402 -> the credential itself is wrong: long cooldown, it will not fix itself
  *   429    -> we are being rate limited: short cooldown, retrying is correct

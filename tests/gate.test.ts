@@ -205,8 +205,8 @@ describe("winner ledger", () => {
 describe("chalcopyrite server sse endpoints", () => {
   test("GET /models/sse returns text/event-stream with an immediate models_reload event", async () => {
     const { buildApp } = await import("../src/server.ts");
-    // Hermetic: point the herd upstream at a dead port so the handler takes
-    // its fallback path (live herd would proxy its own stream instead).
+    // Hermetic: point the bornite upstream at a dead port so the handler takes
+    // its fallback path (live bornite would proxy its own stream instead).
     const cfgDead = loadConfig({ ...cfg, bases: { ...cfg.bases, bornite: "http://127.0.0.1:1" } });
     const r = new Router(cfgDead, new ProviderGate(cfgDead), new Quarantine(), ledgerAt(scratch("cg-s-")));
     r.register("m/mock", "alpha");

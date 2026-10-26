@@ -1,10 +1,10 @@
 /**
  * chalcopyrite — live model catalog.
  *
- * The catalog is written by @toxicwind/pinax and read by every routing layer.
+ * The catalog is written by @toxicwind/mimetite and read by every routing layer.
  * Two contracts are recognized on read:
  *
- *   estate-pinax/live-catalog/v1        canonical, pinax >= 2.4
+ *   estate-mimetite/live-catalog/v1        canonical, mimetite >= 2.4
  *   estate-providers/live-catalog/v1    predecessor, legacy < 2.4
  *
  * There is no `contractMatched` boolean. The descriptor carries provenance;
@@ -26,21 +26,21 @@ import {
 } from "node:fs";
 import { dirname } from "node:path";
 
-export const LIVE_CATALOG_CONTRACT = "estate-pinax/live-catalog/v1";
+export const LIVE_CATALOG_CONTRACT = "estate-mimetite/live-catalog/v1";
 export const LEGACY_CATALOG_CONTRACT = "estate-providers/live-catalog/v1";
 
 export const CONTRACTS = {
-  "estate-pinax/live-catalog/v1": {
+  "estate-mimetite/live-catalog/v1": {
     generation: 2,
     canonical: true,
     introduced: "2026-06-01",
-    emittedBy: "@toxicwind/pinax >= 2.4",
+    emittedBy: "@toxicwind/mimetite >= 2.4",
   },
   "estate-providers/live-catalog/v1": {
     generation: 1,
     canonical: false,
     introduced: "2026-01-01",
-    emittedBy: "@toxicwind/pinax (legacy, < 2.4)",
+    emittedBy: "@toxicwind/mimetite (legacy, < 2.4)",
   },
 } as const;
 
@@ -351,7 +351,7 @@ export function pick(
 }
 
 export type Probe = {
-  readonly gateway: "herd" | "flock";
+  readonly gateway: "bornite" | "flock";
   readonly ok: boolean;
   readonly models: readonly string[];
   readonly ms: number;
@@ -362,7 +362,7 @@ export function gatewayRoot(baseUrl: string): string {
 }
 
 export async function probeGateway(
-  gateway: "herd" | "flock",
+  gateway: "bornite" | "flock",
   baseUrl: string,
   token: string,
   timeoutMs = 8000,

@@ -9,7 +9,7 @@
 Every model an agent can think with should be one request away. chalcopyrite is that one request: **strategy names — not model names — decide where traffic goes**, so clients never rewire when providers change. It superseded the estate-scripts-router on `:25104` (still serving — pitchfork `auto = ["start"]`, verified 2026-10-02) and absorbed the flock-proxy role (`:25193`, live again 2026-10-04, key-gated).
 
 - **Strategy-based routing** — `hybrid` (default: sticky → ast_race → circuit_chain), `free`, `ast_race`, `sticky_affinity`, `weighted_elo`, `circuit_chain`, `fifo_matrix`.
-- **Zero-cost by default** — the `free` strategy races local herd inference against every `:free` cloud model; cost-sensitive agents never touch a paid endpoint by accident.
+- **Zero-cost by default** — the `free` strategy races local bornite inference against every `:free` cloud model; cost-sensitive agents never touch a paid endpoint by accident.
 - **Self-healing** — per-provider circuit breakers (open/half-open), key pools with 429 rotation, quarantine for poisoned upstreams.
 - **Observable** — pino JSON logs, `/health`, `/v1/models`, and a token/cost ledger.
 
@@ -42,7 +42,7 @@ tests/            bun test suite (`bun test`)
 
 ## Where it sits
 
-Part of the [mesh](../../README.md) routing plane at `ranch/mesh/proxy/chalcopyrite/`. It superseded `:25104` (estate-scripts-router, still serving) and absorbed the `:25193` flock-proxy role (live again 2026-10-04, key-gated). Herd (`:25100`) is its local-inference leg when up.
+Part of the [mesh](../../README.md) routing plane at `ranch/mesh/proxy/chalcopyrite/`. It superseded `:25104` (estate-scripts-router, still serving) and absorbed the `:25193` flock-proxy role (live again 2026-10-04, key-gated). Bornite (`:25100`) is its local-inference leg when up.
 
 
 ## Providers: OpenCode Zen free tier
@@ -96,7 +96,7 @@ below stays routable even when the live catalog lags an upstream rotation.
 | space-bunny-free | listed | serves | 0.1s |
 | ling-3.0-flash-fin-free | listed (new 2026-10-04) | 404 upstream on re-probe 2026-10-04 ~04:27Z (delisted) | — |
 
-**Re-probe 2026-10-04 ~04:27Z** (direct `https://opencode.ai/zen/v1/chat/completions`, authenticated, tool-signature bundle, 86-model sweep): 8 of the 17 answer with the requested model — mimo-v2.6-flash-free, nemotron-3-ultra-free, space-bunny-free, mimo-v2.5-free, fledge-alpha-free, big-pickle, longcat-2.5-preview-free, nemotron-3.5-lightning-free (reasoning models need a real `max_tokens` budget; a 30-token probe burns it on chain-of-thought). deepseek-v4-flash-free, qwen3.6-plus-free, minimax-m3-free, north-mini-code-free, jev-1.13-free and muse-spark-1.2/1.3-contributor-free return 400; ling-3.1-flash-free returns 403; ling-3.0-flash-fin-free returns 404. Through `:25104` strategy-auto degrades these to a local fallback (`herd/beellama/exaone-4-0-1-2b`) with HTTP 200 — a 200 there does not prove the Zen model answered. Check the `routed-via` SSE comment before trusting a completion. Full per-model results: `/home/toxic/zen-sweep-results.json` on yote (86 models, authenticated).
+**Re-probe 2026-10-04 ~04:27Z** (direct `https://opencode.ai/zen/v1/chat/completions`, authenticated, tool-signature bundle, 86-model sweep): 8 of the 17 answer with the requested model — mimo-v2.6-flash-free, nemotron-3-ultra-free, space-bunny-free, mimo-v2.5-free, fledge-alpha-free, big-pickle, longcat-2.5-preview-free, nemotron-3.5-lightning-free (reasoning models need a real `max_tokens` budget; a 30-token probe burns it on chain-of-thought). deepseek-v4-flash-free, qwen3.6-plus-free, minimax-m3-free, north-mini-code-free, jev-1.13-free and muse-spark-1.2/1.3-contributor-free return 400; ling-3.1-flash-free returns 403; ling-3.0-flash-fin-free returns 404. Through `:25104` strategy-auto degrades these to a local fallback (`bornite/beellama/exaone-4-0-1-2b`) with HTTP 200 — a 200 there does not prove the Zen model answered. Check the `routed-via` SSE comment before trusting a completion. Full per-model results: `/home/toxic/zen-sweep-results.json` on yote (86 models, authenticated).
 
 ### Community projects taking zen further
 
