@@ -14,7 +14,7 @@
 
 import { createHash } from "node:crypto";
 import { watch, readFileSync, existsSync } from "node:fs";
-import { handleMeshRequest } from "/home/toxic/estate/src/lib/ghas-mesh-features.ts";
+import { handleMeshRequest } from "/home/toxic/pens/estate/src/lib/ghas-mesh-features.ts";
 import type { ChatBody } from "./router_types.ts";
 import { CODING, PROVIDERS, keyOk, getKey, STRATEGY, MAX_PARALLEL, PORT, json, log, DB_PATH, isExplicit, normalizeModelSpec, resolveModel, loadEnvFile, catalog, catalogModelsFor } from "./router_config.ts";
 import { LIVE_MODEL_META, modelFree } from "./router_config.ts";
@@ -612,7 +612,7 @@ strategy_detail: STRATEGY === "auto" ? "auto: ast_race (code-shaped) -> free rac
 const SECRET_FILES = [
   `${process.env.HOME}/.secrets`,
   "/home/toxic/.secrets",
-  "/home/toxic/estate/.env.local",
+  "/home/toxic/pens/estate/.env.local",
 ];
 function hotReload(source: string): Record<string, unknown> {
   for (const f of SECRET_FILES) loadEnvFile(f, true);

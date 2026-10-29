@@ -10,7 +10,7 @@
  * spec shape is a new entry in the table, not another branch in the function.
  */
 import { existsSync, readFileSync } from "node:fs";
-import type { ProviderDef } from "/home/toxic/estate/packages/providers/src/index.ts";
+import type { ProviderDef } from "/home/toxic/pens/estate/packages/providers/src/index.ts";
 import type { ProviderView } from "./types.ts";
 
 // ── timing / strategy constants, frozen ────────────────────────────────────
@@ -58,7 +58,7 @@ const DEFAULT_ROLES: LocalRoles = {
 
 export function loadLocalRoleModels(): LocalRoles {
   try {
-    const p = "/home/toxic/estate/.state/best-models.json";
+    const p = "/home/toxic/pens/estate/var/state/best-models.json";
     if (!existsSync(p)) return DEFAULT_ROLES;
     const j = JSON.parse(readFileSync(p, "utf8"));
     return {

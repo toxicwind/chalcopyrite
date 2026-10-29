@@ -17,7 +17,7 @@
 import { EloEngine } from "./policy/elo.ts";
 import { CircuitPolicy } from "./policy/circuit.ts";
 import { PolicyHealthDB } from "./policy/health.ts";
-import { DEAD_MODEL_IDS, ModelCatalog, MODEL_ALIASES, PROVIDER_DEFS } from "/home/toxic/estate/packages/providers/src/index.ts";
+import { DEAD_MODEL_IDS, ModelCatalog, MODEL_ALIASES, PROVIDER_DEFS } from "/home/toxic/pens/estate/packages/providers/src/index.ts";
 import { Governor, isWorkerExhausted } from "./governor.ts";
 import { NvidiaKeyPool } from "./nvidia-keys.ts";
 import {
@@ -81,7 +81,7 @@ export class PolicyBackedDeps implements StrategyDeps {
     this.elo = new EloEngine();
     this.circuit = new CircuitPolicy();
     this.health = new PolicyHealthDB(
-      opts.dbPath ?? "/home/toxic/estate/.state/health.db",
+      opts.dbPath ?? "/home/toxic/pens/estate/var/state/health.db",
     );
     this.catalog = new ModelCatalog(PROVIDER_DEFS, {
       aliases: MODEL_ALIASES,

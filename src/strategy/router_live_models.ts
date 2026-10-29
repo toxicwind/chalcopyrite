@@ -27,10 +27,10 @@ import {
   keyOk,
   log,
 } from "./router_config.ts";
-import { discover } from "/home/toxic/estate/packages/providers/src/index.ts";
+import { discover } from "/home/toxic/pens/estate/packages/providers/src/index.ts";
 import { applySigmaBackfill, sigmaCatalogInfo } from "./sigma-enrich.ts";
 
-const META_STATE_PATH = "/home/toxic/estate/.state/live-models.json";
+const META_STATE_PATH = "/home/toxic/pens/estate/var/state/live-models.json";
 // No timer: refresh is event-driven (startup, admin, SIGHUP, request-triggered).
 // See startLiveDiscovery below.
 
