@@ -17,7 +17,7 @@ import { writeLiveCatalog, DEFAULT_CATALOG_PATH } from "../src/catalog";
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((a) => a.startsWith("--")));
 
-const PORTS_ENV = process.env.ESTATE_PORTS_ENV ?? "/home/toxic/estate/config/ports.env";
+const PORTS_ENV = process.env.ESTATE_PORTS_ENV ?? "/home/toxic/pens/estate/config/ports.env";
 function portFromEnv(name: string, fallback: string): string {
   try {
     const text = readFileSync(PORTS_ENV, "utf8");
