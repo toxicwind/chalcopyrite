@@ -1,6 +1,6 @@
 # chalcopyrite
 
-*The canonical live router for the estate: one OpenAI-compatible endpoint fans requests across cloud providers and local inference with strategy-based failover, circuit breakers, and sticky sessions.*
+*Superseded router (was canonical 2026-10-02 → 2026-10-26): strategy-based failover, circuit breakers, sticky sessions. The canonical estate router is now [rhodochrosite](../rhodochrosite/) on :25193.*
 
 ![ranch](https://img.shields.io/badge/toxicwind-ranch-blue?style=for-the-badge) ![mesh](https://img.shields.io/badge/mesh-chalcopyrite-purple?style=for-the-badge) ![bun](https://img.shields.io/badge/bun-black?style=for-the-badge) ![port 25200](https://img.shields.io/badge/port-25200-green?style=for-the-badge)
 
