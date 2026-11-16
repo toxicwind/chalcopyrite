@@ -1,5 +1,5 @@
 /**
- * flock/ts/policy/elo.ts — Elo rating policy ported from estate-scripts-router's
+ * flock/ts/policy/elo.ts — Elo rating policy ported from Pens-scripts-router's
  * router_matrix.ts (Matrix.record / setElo / applyBenchPriors).
  *
  * Boundary with the Rust proxy: proxy/src/health.rs owns the persisted Elo

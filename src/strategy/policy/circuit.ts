@@ -1,6 +1,6 @@
 /**
  * flock/ts/policy/circuit.ts — quarantine + circuit policy ported from
- * estate-scripts-router's router_matrix.ts (Matrix.record / recordProbe /
+ * Pens-scripts-router's router_matrix.ts (Matrix.record / recordProbe /
  * circuitOk / laneDead / noteEntitlement404 / flap tracker /
  * startQuarantineProber).
  *
@@ -32,7 +32,7 @@
 
 export type CircuitState = "closed" | "open" | "half";
 
-/** Defaults from estate-scripts router_config.ts (env-overridable there). */
+/** Defaults from Pens-scripts router_config.ts (env-overridable there). */
 export const QUARANTINE_BASE_S = 60;
 export const QUARANTINE_MAX_S = 1800;
 export const QUARANTINE_PROBE_MS = 15000;

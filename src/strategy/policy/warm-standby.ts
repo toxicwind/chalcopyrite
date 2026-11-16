@@ -1,6 +1,6 @@
 /**
  * flock/ts/policy/warm-standby.ts — warm standby pinger ported from
- * estate-scripts-router's router.ts (startWarmStandby).
+ * Pens-scripts-router's router.ts (startWarmStandby).
  *
  * HFT: dial once, keep alive. Low-frequency liveness pings for LOCAL
  * providers only (no cloud spend — a dead local backend earns circuit
@@ -34,7 +34,7 @@ export interface WarmProvider {
 }
 
 export interface WarmStandbyOptions {
-  /** Ping interval. Default 30000 (30s, estate-scripts parity). */
+  /** Ping interval. Default 30000 (30s, Pens-scripts parity). */
   intervalMs?: number;
   /** Per-probe deadline. Default 5000. */
   probeTimeoutMs?: number;

@@ -1,5 +1,5 @@
 /**
- * flock/ts/policy — estate-scripts-router policy engine, ported to TypeScript.
+ * flock/ts/policy — Pens-scripts-router policy engine, ported to TypeScript.
  *
  * The Rust proxy (mesh/proxy/flock-proxy/src) owns the hot path: per-request circuit
  * breaking (circuit.rs), persisted health/Elo store (health.rs), routing

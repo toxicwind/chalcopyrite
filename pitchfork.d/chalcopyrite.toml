@@ -1,5 +1,5 @@
 # ranch/mesh/proxy/chalcopyrite — project-owned daemon manifest. Source of truth for 'chalcopyrite'.
-# The canonical estate router. Binds :25200 via CHALCOPYRITE_PORT.
+# The canonical Pens router. Binds :25200 via CHALCOPYRITE_PORT.
 # NOTE: the baked-in config default 25194 is held by the Ralph dashboard
 # (uvicorn); 25195 is held by codebase-memory. Do not move this daemon
 # onto either without re-homing the holder first.

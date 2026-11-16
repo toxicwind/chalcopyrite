@@ -9,8 +9,8 @@ Auto-backfilled from git history 2026-11-02 (real commits only).
 - chore(eidos): rename sweep + scaffold bunfig + infra drop-in env (eidos is the parent; vendor/fixture excluded (3d75f35)
 
 ## 2026-10-29
-- fix: sweep remaining ghost /home/toxic/estate literals in bin/config/tests (fleet-orb finding) (8dec821)
-- fix: sweep ghost /home/toxic/estate literals to pens paths (anomaly #48 class) (d490e0e)
+- fix: sweep remaining ghost /home/toxic/pens/Pens literals in bin/config/tests (fleet-orb finding) (8dec821)
+- fix: sweep ghost /home/toxic/pens/Pens literals to pens paths (anomaly #48 class) (d490e0e)
 
 ## 2026-10-26
 - resect: first-class config (package.json scripts) + geode session stragglers (357e436)

@@ -60,7 +60,7 @@ describe("loadLiveCatalog", () => {
     expect([...servingIds(loaded.catalog)]).toHaveLength(3);
   });
 
-  // The real outage: the file on disk said estate-providers/live-catalog/v1
+  // The real outage: the file on disk said Pens-providers/live-catalog/v1
   // and both readers did `if (contract !== expected) return null`, silently.
   test("accepts the pre-rename contract but flags it", () => {
     const loaded = loadLiveCatalog(catalogFile({ ...FIXTURE, contract: LEGACY_CATALOG_CONTRACT }));
@@ -75,7 +75,7 @@ describe("loadLiveCatalog", () => {
       throw new Error(`expected unknown-contract, got ${loaded.status}`);
     }
     expect(loaded.contract.saw).toBe("something-else/v9");
-    expect(loaded.contract.expected).toContain("estate-mimetite/live-catalog/v1");
+    expect(loaded.contract.expected).toContain("Pens-mimetite/live-catalog/v1");
   });
 
   test("a missing file is a reason, not a throw", () => {
@@ -113,7 +113,7 @@ describe("resolve", () => {
   });
 
   test("an unknown id resolves to nothing instead of guessing", () => {
-    expect(resolve(FIXTURE, "estate/free")).toHaveLength(0);
+    expect(resolve(FIXTURE, "Pens/free")).toHaveLength(0);
     expect(resolve(FIXTURE, "local-fast")).toHaveLength(0);
   });
 
